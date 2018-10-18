@@ -77,7 +77,7 @@ public class SqlSessionFactoryBuilder {
      * 根据配置创建SqlSessionFactory
      *
      * @param inputStream 配置文件输入流
-     * @param environment 环境名称
+     * @param environment 环境名称 如开发,测试和生产
      * @param properties  外部配置
      * @return
      */

@@ -92,10 +92,11 @@ import org.apache.ibatis.type.TypeHandler;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
+ * Mybatis配置
  * @author Clinton Begin
  */
 public class Configuration {
-
+    // Mybatis的环境
     protected Environment environment;
 
     protected boolean safeRowBoundsEnabled;
@@ -119,6 +120,7 @@ public class Configuration {
             Arrays.asList("equals", "clone", "hashCode", "toString"));
     protected Integer defaultStatementTimeout;
     protected Integer defaultFetchSize;
+    // 默认配置普通的执行器
     protected ExecutorType defaultExecutorType = ExecutorType.SIMPLE;
     protected AutoMappingBehavior autoMappingBehavior = AutoMappingBehavior.PARTIAL;
     protected AutoMappingUnknownColumnBehavior autoMappingUnknownColumnBehavior = AutoMappingUnknownColumnBehavior.NONE;
@@ -128,6 +130,7 @@ public class Configuration {
     protected ObjectFactory objectFactory = new DefaultObjectFactory();
     protected ObjectWrapperFactory objectWrapperFactory = new DefaultObjectWrapperFactory();
 
+    // 默认关闭lazyLoading
     protected boolean lazyLoadingEnabled = false;
     protected ProxyFactory proxyFactory = new JavassistProxyFactory(); // #224 Using internal Javassist instead of OGNL
 
@@ -140,9 +143,13 @@ public class Configuration {
      */
     protected Class<?> configurationFactory;
 
+    // 注册mapper
     protected final MapperRegistry mapperRegistry = new MapperRegistry(this);
+    // 加载interceptor （plugin）
     protected final InterceptorChain interceptorChain = new InterceptorChain();
+    // 注册typeHandler
     protected final TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry();
+    // 注册别名
     protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
     protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 

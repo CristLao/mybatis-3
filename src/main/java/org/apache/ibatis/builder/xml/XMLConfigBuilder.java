@@ -79,6 +79,7 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
 
     public XMLConfigBuilder(InputStream inputStream, String environment, Properties props) {
+        // XMLMapperEntityResolver离线MyBatis dtd实体解析器
         this(new XPathParser(inputStream, true, props, new XMLMapperEntityResolver()), environment, props);
     }
 
