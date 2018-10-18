@@ -161,7 +161,7 @@ public class SqlSessionTest extends BaseDataTest {
       session.selectOne("org.apache.ibatis.domain.blog.mappers.AuthorMapper.selectAllAuthors");
     }
   }
-  
+
   @Test
   public void shouldSelectAllAuthorsAsMap() {
     try (SqlSession session = sqlMapper.openSession(TransactionIsolationLevel.SERIALIZABLE)) {
@@ -484,7 +484,7 @@ public class SqlSessionTest extends BaseDataTest {
       assertEquals(101, author.get("ID"));
     }
   }
-  
+
   @Test
   public void shouldExecuteSelectAllAuthorsUsingMapperClassThatReturnsSet() {
     try (SqlSession session = sqlMapper.openSession()) {
@@ -542,7 +542,7 @@ public class SqlSessionTest extends BaseDataTest {
       assertEquals(101, author.getId());
     }
   }
-  
+
   @Test
   public void shouldSelectAuthorsUsingMapperClassWithResultHandler() {
     try (SqlSession session = sqlMapper.openSession()) {

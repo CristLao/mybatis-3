@@ -72,6 +72,13 @@ public class DefaultSqlSession implements SqlSession {
         return this.<T> selectOne(statement, null);
     }
 
+    /**
+     * 本质上，selectOne还是用selectList的方式来查询，只是如果获得多个结果集就抛出异常
+     * @param statement Unique identifier matching the statement to use.
+     * @param parameter A parameter object to pass to the statement.
+     * @param <T>
+     * @return
+     */
     @Override
     public <T> T selectOne(String statement, Object parameter) {
         // Popular vote was to return null on 0 results and throw exception on too many.
@@ -144,10 +151,20 @@ public class DefaultSqlSession implements SqlSession {
         return this.selectList(statement, parameter, RowBounds.DEFAULT);
     }
 
+    /**
+     * selectList读取相应mapper的sql配置, 然后执行sql
+     * @param statement Unique identifier matching the statement to use.
+     * @param parameter A parameter object to pass to the statement.
+     * @param rowBounds  Bounds to limit object retrieval
+     * @param <E>
+     * @return
+     */
     @Override
     public <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds) {
         try {
+            // 从配置中获取statement信息
             MappedStatement ms = configuration.getMappedStatement(statement);
+            // 调用执行器查询
             return executor.query(ms, wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);
         } catch (Exception e) {
             throw ExceptionFactory.wrapException("Error querying database.  Cause: " + e, e);
@@ -290,6 +307,14 @@ public class DefaultSqlSession implements SqlSession {
         return configuration;
     }
 
+    /**
+     * getMapper是用动态代理的方式实现, 本质上和SqlSession的selectOne是一样的
+     * sqlSession.getMapper -> Configuration.getMapper -> MapperRegistry.getMapper ->
+     * mapperProxyFactory.newInstance -> mapperProxy.invoke -> mapperMethod.execute -> sqlSession.selectOne
+     * @param type Mapper interface class
+     * @param <T>
+     * @return
+     */
     @Override
     public <T> T getMapper(Class<T> type) {
         return configuration.<T> getMapper(type, this);

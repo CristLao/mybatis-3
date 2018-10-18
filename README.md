@@ -18,9 +18,9 @@ Simplicity is the biggest advantage of the MyBatis data mapper over object relat
 整体架构
 --------
 分为基础支持层、核心处理层和接口层
-* **接口层** : SqlSession （[SqlSession](SqlSession.md)）
+* **接口层** : SqlSession（[SqlSession](SqlSession.md)）
 * **核心处理层** : 配置解析（[Configuration](Configuration.md)） 参数映射 SQL解析 SQL执行 结果集映射 插件
-* **基础支持层** : 数据源模块 事务管理模块（[Transaction](Transaction.md)） 缓存模块 Binging模块 反射模块 类型转换 日志模块 资源加载 解析器模块
+* **基础支持层** : 数据源模块 事务管理模块（[Transaction](Transaction.md)） 缓存模块 Binging模块（[MapperProxy](MapperProxy.md)） 反射模块 类型转换 日志模块 资源加载 解析器模块
 
 Essentials
 ----------
