@@ -583,6 +583,7 @@ public class Configuration {
         executorType = executorType == null ? defaultExecutorType : executorType;
         executorType = executorType == null ? ExecutorType.SIMPLE : executorType;
         Executor executor;
+        // 根据执行器类型创建执行器
         if (ExecutorType.BATCH == executorType) {
             executor = new BatchExecutor(this, transaction);
         } else if (ExecutorType.REUSE == executorType) {
@@ -592,7 +593,7 @@ public class Configuration {
             executor = new SimpleExecutor(this, transaction);
         }
         if (cacheEnabled) {
-            // 开启缓存的Executor
+            // 开启二级缓存的Executor
             executor = new CachingExecutor(executor);
         }
         // 插件加载责任链
