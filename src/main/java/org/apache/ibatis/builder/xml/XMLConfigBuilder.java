@@ -92,12 +92,14 @@ public class XMLConfigBuilder extends BaseBuilder {
     }
 
     public Configuration parse() {
+        // 防止重复解析
         if (parsed) {
             throw new BuilderException("Each XMLConfigBuilder can only be used once.");
         }
         parsed = true;
         //读取mybatis-config.xml配置信息,"configuration"是根结点
         parseConfiguration(parser.evalNode("/configuration"));
+        // 返回解析好的
         return configuration;
     }
 

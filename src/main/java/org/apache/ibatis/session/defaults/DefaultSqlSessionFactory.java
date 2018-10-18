@@ -33,6 +33,7 @@ import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 
 /**
  * SqlSessionFactory默认实现
+ *
  * @author Clinton Begin
  */
 public class DefaultSqlSessionFactory implements SqlSessionFactory {
@@ -94,8 +95,11 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
         try {
             final Environment environment = configuration.getEnvironment();
             final TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);
+            // 事务
             tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
+            // 执行器
             final Executor executor = configuration.newExecutor(tx, execType);
+            // 返回默认的SqlSession
             return new DefaultSqlSession(configuration, executor, autoCommit);
         } catch (Exception e) {
             closeTransaction(tx); // may have fetched a connection so lets call close()
@@ -137,6 +141,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
     private void closeTransaction(Transaction tx) {
         if (tx != null) {
             try {
+                // 关闭事务
                 tx.close();
             } catch (SQLException ignore) {
                 // Intentionally ignore. Prefer previous error.
